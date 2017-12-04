@@ -1,5 +1,6 @@
 require.config({
-  baseUrl: localStorage.getItem('rt.debug') ? 'amd_modules' : '//unpkg.com'
+  baseUrl: /debug/.test(location.search) ? 'amd_modules' : '//unpkg.cnpmjs.org',
+  waitSeconds: 30
 })
 
 // apmjs auto-creates these entries when installed locally
@@ -11,13 +12,13 @@ define('ralltiir-application', function (require) {
 })
 
 require(['ralltiir', 'ralltiir-application', 'ralltiir-application/view/view'], function (rt, Service, View) {
-  View.backHTML = '<i class="fa fa-arrow-left"></i>'
-  rt.services.register('/home', {title: 'Ralltiir Application'}, Service)
-  rt.services.register('/scroll-restore', {title: 'Scroll Restore'}, Service)
-  rt.services.register('/partial-update', {title: 'Partial Update'}, Service)
-  rt.services.register('/partial-update-advanced', {title: 'Partial Update'}, Service)
+    View.backHTML = '<i class="fa fa-arrow-left"></i>'
+    rt.services.register('/home', {title: 'Ralltiir Application'}, Service)
+    rt.services.register('/scroll-restore', {title: 'Scroll Restore'}, Service)
+    rt.services.register('/partial-update', {title: 'Partial Update'}, Service)
+    rt.services.register('/partial-update-advanced', {title: 'Partial Update'}, Service)
 
-  rt.action.start({
+    rt.action.start({
       root: '/ralltiir-application-demo'
-  })
+    })
 })
