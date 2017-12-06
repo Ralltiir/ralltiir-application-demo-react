@@ -22,12 +22,19 @@ define(function (require) {
 
     componentDidMount: function componentDidMount() {
       var setState = this.setState;
-      var router = Router({
-        '/': setState.bind(this, { nowShowing: Utils.ALL_TODOS }),
-        '/active': setState.bind(this, { nowShowing: Utils.ACTIVE_TODOS }),
-        '/completed': setState.bind(this, { nowShowing: Utils.COMPLETED_TODOS })
+      var router = this.router = Router({
+        '/ralltiir-application-demo-react/todolist': setState.bind(this, { nowShowing: Utils.ALL_TODOS }),
+        '/ralltiir-application-demo-react/todolist/active': setState.bind(this, { nowShowing: Utils.ACTIVE_TODOS }),
+        '/ralltiir-application-demo-react/todolist/completed': setState.bind(this, { nowShowing: Utils.COMPLETED_TODOS })
       });
-      router.init('/');
+      router.configure({
+        html5history: true
+      });
+      router.init('/ralltiir-application-demo-react/todolist');
+    },
+
+    setRoute: function (url) {
+      this.router.setRoute(url);
     },
 
     handleChange: function handleChange(event) {
@@ -119,6 +126,7 @@ define(function (require) {
           count: activeTodoCount,
           completedCount: completedCount,
           nowShowing: this.state.nowShowing,
+          setRoute: this.setRoute.bind(this),
           onClearCompleted: this.clearCompleted
         });
       }
@@ -169,10 +177,14 @@ define(function (require) {
 
   var model = new TodoModel('react-todos');
 
-  function render() {
-    ReactDOM.render(React.createElement(TodoApp, { model: model }), document.getElementsByClassName('todoapp')[0]);
-  }
+  return {
+      start: function (el) {
+          function render() {
+            ReactDOM.render(React.createElement(TodoApp, { model: model }), el);
+          }
 
-  model.subscribe(render);
-  render();
+          model.subscribe(render);
+          render();
+      }
+  };
 });

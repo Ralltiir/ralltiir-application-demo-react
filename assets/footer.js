@@ -45,8 +45,9 @@ define(function (require) {
             React.createElement(
               'a',
               {
-                href: '#/',
-                className: Utils.classNames({ selected: nowShowing === Utils.ALL_TODOS }) },
+                className: Utils.classNames({ selected: nowShowing === Utils.ALL_TODOS }),
+                onClick: this.props.setRoute.bind(this.props, '/ralltiir-application-demo-react/todolist')
+              },
               'All'
             )
           ),
@@ -57,8 +58,9 @@ define(function (require) {
             React.createElement(
               'a',
               {
-                href: '#/active',
-                className: Utils.classNames({ selected: nowShowing === Utils.ACTIVE_TODOS }) },
+                className: Utils.classNames({ selected: nowShowing === Utils.ACTIVE_TODOS }),
+                onClick: this.props.setRoute.bind(this.props, '/ralltiir-application-demo-react/todolist/active')
+              },
               'Active'
             )
           ),
@@ -69,8 +71,9 @@ define(function (require) {
             React.createElement(
               'a',
               {
-                href: '#/completed',
-                className: Utils.classNames({ selected: nowShowing === Utils.COMPLETED_TODOS }) },
+                className: Utils.classNames({ selected: nowShowing === Utils.COMPLETED_TODOS }),
+                onClick: this.props.setRoute.bind(this.props, '/ralltiir-application-demo-react/todolist/completed')
+              },
               'Completed'
             )
           )
